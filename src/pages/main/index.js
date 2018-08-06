@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactMapGL from 'react-map-gl';
+import SideBar from '../../components/SideBar';
+import AddUserModal from '../../components/AddUserModal';
 
 class Main extends Component {
     state = {
@@ -10,25 +12,32 @@ class Main extends Component {
             longitude: -51.130012,
             zoom: 14,
         },
+        open: false,
     };
 
     handleMapClick = (e) => {
         const [latitude, longitude] = e.lngLat;
+
+        this.setState({ open: true });
     };
 
     render() {
         const { viewport } = this.state;
 
         return (
-            <ReactMapGL
-                {...viewport}
-                onClick={this.handleMapClick}
-                mapStyle="mapbox://styles/mapbox/basic-v9"
-                mapboxApiAccessToken={process.env.REACT_APP_MAPBOXACCESSTOKEN}
-                onViewportChange={viewport => this.setState({ viewport })}
-            >
-                <p>TESTE</p>
-            </ReactMapGL>
+            <Fragment>
+                <SideBar />
+
+                <ReactMapGL
+                    {...viewport}
+                    onClick={this.handleMapClick}
+                    mapStyle="mapbox://styles/mapbox/basic-v9"
+                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOXACCESSTOKEN}
+                    onViewportChange={viewport => this.setState({ viewport })}
+                >
+                    <AddUserModal open={this.state.open} />
+                </ReactMapGL>
+            </Fragment>
         );
     }
 }

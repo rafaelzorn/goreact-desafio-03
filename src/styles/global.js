@@ -10,9 +10,21 @@ injectGlobal`
         outline: 0;
     }
 
+    html, body, #root {
+        height: 100%;
+    }
+
     body {
         text-rendering: optimizeLegibility !important;
         -webkit-font-smoothing: antialiased !important;
         font-family: sans-serif;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .ReactModal__Overlay--after-open {
+        background-color: rgba(0, 0, 0, 0.75) !important;
     }
 `;
