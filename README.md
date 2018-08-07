@@ -19,7 +19,7 @@ cd goreact-desafio-03
 Instalar as dependências do projeto:
 
 ```
-yarn install
+yarn
 ```
 
 Por fim, execute o servidor de desenvolvimento e o aplicativo deve estar disponível na seguinte URL: http://localhost:3000
@@ -30,7 +30,8 @@ yarn start
 
 ## Screenshots
 
-![Screenshot 1](https://image.ibb.co/c4xJqe/screenshot.png)
+![Screenshot 1](https://image.ibb.co/fzocGK/ad.png)
+![Screenshot 2](https://preview.ibb.co/cHDBbK/user.png)
 
 ## Construído com
 
