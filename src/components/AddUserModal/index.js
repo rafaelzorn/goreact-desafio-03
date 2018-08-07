@@ -1,10 +1,81 @@
-import React from 'react';
-import { StyledReactModal } from './styles';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { Creators as ModalActions } from '../../store/ducks/modal';
+import { Creators as UserActions } from '../../store/ducks/users';
+import { StyledReactModal, Form } from './styles';
 
-const AddUserModal = ({ open }) => (
-    <StyledReactModal isOpen={open} contentLabel="Minimal Modal Example">
-        MODAL FORMULARIO
-    </StyledReactModal>
-);
+class AddUserModal extends Component {
+    state = {
+        userInput: '',
+    };
 
-export default AddUserModal;
+    handleAddUser = (event) => {
+        event.preventDefault();
+
+        const { addUserRequest, users } = this.props;
+        const { userInput } = this.state;
+
+        addUserRequest(userInput, users.latitude, users.longitude);
+
+        this.setState({
+            userInput: '',
+        });
+    };
+
+    render() {
+        const { modal, openModal, users } = this.props;
+        const { userInput } = this.state;
+
+        return (
+            <StyledReactModal isOpen={modal.open} ariaHideApp={false}>
+                <h4>Adicionar novo usuário</h4>
+
+                <Form onSubmit={this.handleAddUser}>
+                    <div>
+                        <input
+                            placeholder="Usuário no Github"
+                            value={userInput}
+                            onChange={e => this.setState({ userInput: e.target.value })}
+                        />
+                    </div>
+
+                    <div>
+                        <button type="button" className="cancel" onClick={() => openModal(false)}>
+                            Cancelar
+                        </button>
+                        <button type="submit" className="save">
+                            {users.loading ? <i className="fa fa-spinner fa-pulse" /> : 'Salvar'}
+                        </button>
+                    </div>
+                </Form>
+            </StyledReactModal>
+        );
+    }
+}
+
+AddUserModal.propTypes = {
+    addUserRequest: PropTypes.func.isRequired,
+    users: PropTypes.shape({
+        loading: PropTypes.bool.isRequired,
+        latitude: PropTypes.string,
+        longitude: PropTypes.string,
+    }).isRequired,
+    openModal: PropTypes.func.isRequired,
+    modal: PropTypes.shape({
+        open: PropTypes.bool.isRequired,
+    }).isRequired,
+};
+
+const mapStateToProps = state => ({
+    modal: state.modal,
+    users: state.users,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ ...ModalActions, ...UserActions }, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(AddUserModal);

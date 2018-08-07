@@ -51,16 +51,22 @@ export const StyledSideBar = styled.div`
                 padding-top: 18px;
 
                 .buttonRemove {
-                    padding: 2px;
+                    float: right;
+                    margin-right: 15px;
                     background: #d45454;
                     color: #fff;
                     text-align: center;
                     border-radius: 50%;
-                    width: 14px;
+                    width: 16px;
                     height: 16px;
                     font-size: 10px;
                     opacity: 0.7;
                     cursor: pointer;
+
+                    .fa-times {
+                        position: relative;
+                        top: 2px;
+                    }
 
                     :hover {
                         opacity: 1;
@@ -71,6 +77,7 @@ export const StyledSideBar = styled.div`
 
             .arrow {
                 padding-top: 17px;
+                color: #717171;
             }
         }
     }

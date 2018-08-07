@@ -30,8 +30,11 @@ yarn start
 
 ## Screenshots
 
+![Screenshot 1](https://image.ibb.co/c4xJqe/screenshot.png)
+
 ## Construído com
 
 -   [React](https://reactjs.org)
 -   [Axios](https://github.com/axios/axios)
 -   [React-Map-GL](https://uber.github.io/react-map-gl/#/)
+-   [Redux Saga](https://redux-saga.js.org)

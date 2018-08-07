@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import ReactMapGL from 'react-map-gl';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import ReactMapGL, { Marker } from 'react-map-gl';
+import { Creators as ModalActions } from '../../store/ducks/modal';
+import { Creators as UserActions } from '../../store/ducks/users';
 import SideBar from '../../components/SideBar';
 import AddUserModal from '../../components/AddUserModal';
 
@@ -8,21 +13,24 @@ class Main extends Component {
         viewport: {
             width: window.innerWidth,
             height: window.innerHeight,
-            latitude: -29.685689,
-            longitude: -51.130012,
+            latitude: -29.685801,
+            longitude: -51.12778,
             zoom: 14,
         },
-        open: false,
     };
 
     handleMapClick = (e) => {
-        const [latitude, longitude] = e.lngLat;
+        const [longitude, latitude] = e.lngLat;
 
-        this.setState({ open: true });
+        const { openModal, addDistance } = this.props;
+
+        addDistance(latitude, longitude);
+        openModal(true);
     };
 
     render() {
         const { viewport } = this.state;
+        const { users } = this.props;
 
         return (
             <Fragment>
@@ -35,11 +43,51 @@ class Main extends Component {
                     mapboxApiAccessToken={process.env.REACT_APP_MAPBOXACCESSTOKEN}
                     onViewportChange={viewport => this.setState({ viewport })}
                 >
-                    <AddUserModal open={this.state.open} />
+                    <AddUserModal />
+
+                    {users.data.map(user => (
+                        <Marker key={user.id} latitude={user.latitude} longitude={user.longitude}>
+                            <img
+                                style={{
+                                    borderRadius: 100,
+                                    width: 48,
+                                    height: 48,
+                                    border: '5px solid #7159C1',
+                                }}
+                                src={user.avatar_url}
+                                alt={user.login}
+                            />
+                        </Marker>
+                    ))}
                 </ReactMapGL>
             </Fragment>
         );
     }
 }
 
-export default Main;
+Main.propTypes = {
+    openModal: PropTypes.func.isRequired,
+    addDistance: PropTypes.func.isRequired,
+    users: PropTypes.shape({
+        data: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                latitude: PropTypes.string.isRequired,
+                longitude: PropTypes.string.isRequired,
+                avatar_url: PropTypes.string.isRequired,
+                login: PropTypes.string.isRequired,
+            }),
+        ),
+    }).isRequired,
+};
+
+const mapStateToProps = state => ({
+    users: state.users,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ ...ModalActions, ...UserActions }, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Main);
