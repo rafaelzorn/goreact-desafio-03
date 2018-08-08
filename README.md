@@ -22,6 +22,10 @@ Instalar as dependências do projeto:
 yarn
 ```
 
+### .ENV
+
+Crie sua conta no mapbox para adquirir sua API KEY. A API KEY deve ser adicionada no .env que ainda não existe. Basta duplicar o .env.example, renomeando para .env e adicionar a chave.
+
 Por fim, execute o servidor de desenvolvimento e o aplicativo deve estar disponível na seguinte URL: http://localhost:3000
 
 ```
