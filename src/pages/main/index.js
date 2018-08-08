@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { Creators as ModalActions } from '../../store/ducks/modal';
@@ -35,6 +36,8 @@ class Main extends Component {
         return (
             <Fragment>
                 <SideBar />
+
+                <ToastContainer />
 
                 <ReactMapGL
                     {...viewport}
@@ -72,8 +75,8 @@ Main.propTypes = {
         data: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.number.isRequired,
-                latitude: PropTypes.string.isRequired,
-                longitude: PropTypes.string.isRequired,
+                latitude: PropTypes.number.isRequired,
+                longitude: PropTypes.number.isRequired,
                 avatar_url: PropTypes.string.isRequired,
                 login: PropTypes.string.isRequired,
             }),

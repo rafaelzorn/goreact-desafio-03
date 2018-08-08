@@ -54,7 +54,7 @@ SideBar.propTypes = {
                 id: PropTypes.number.isRequired,
                 avatar_url: PropTypes.string.isRequired,
                 name: PropTypes.string.isRequired,
-                loging: PropTypes.string.isRequired,
+                login: PropTypes.string.isRequired,
             }),
         ),
     }).isRequired,

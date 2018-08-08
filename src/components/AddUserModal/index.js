@@ -59,8 +59,8 @@ AddUserModal.propTypes = {
     addUserRequest: PropTypes.func.isRequired,
     users: PropTypes.shape({
         loading: PropTypes.bool.isRequired,
-        latitude: PropTypes.string,
-        longitude: PropTypes.string,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
     }).isRequired,
     openModal: PropTypes.func.isRequired,
     modal: PropTypes.shape({

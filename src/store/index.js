@@ -3,10 +3,16 @@ import createSagaMiddleware from 'redux-saga';
 
 import sagas from './sagas';
 import reducers from './ducks';
+import toast from './middlewares/toast';
+
+const middlewares = [];
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+middlewares.push(sagaMiddleware);
+middlewares.push(toast);
+
+const store = createStore(reducers, applyMiddleware(...middlewares));
 
 sagaMiddleware.run(sagas);
 
