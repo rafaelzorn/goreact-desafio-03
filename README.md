@@ -35,7 +35,7 @@ yarn start
 ## Screenshots
 
 ![Screenshot 1](https://image.ibb.co/fzocGK/ad.png)
-![Screenshot 2](https://image.ibb.co/cHDBbK/user.png)
+![Screenshot 2](https://image.ibb.co/b7NRFq/image-2.png)
 
 ## Construído com
 
