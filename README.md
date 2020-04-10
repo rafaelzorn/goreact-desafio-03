@@ -22,6 +22,7 @@
 - Clone this repository
 - Install all dependencies using the command `yarn`
 - Fill the `.env` file
+- Run `yarn start`
 - Access http://localhost:3000/
 
 ## Used technologies
